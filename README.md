@@ -1,10 +1,10 @@
-frontend-nanodegree-arcade-game
+Udacity frontend-nanodegree-arcade-game
 ===============================
 
 # P3:  Classic Arcade Game Clone
 
 ### Summary
-The purpose of this game is to navigate the character to the water at the top of the game board without getting hit by the enemies.
+Navigate the character to the water at the top of the game board without getting hit by the enemies.
 
 ### Installation Instructions
 
