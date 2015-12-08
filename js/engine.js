@@ -19,12 +19,15 @@ var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
+     * Added variables needed later in the checkCollisions function.
      */
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        acollisionfront = 50,
+        bcollisionfront = 45;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -70,6 +73,7 @@ var Engine = (function(global) {
         main();
     }
 
+
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
      * you implement your collision detection (when two entities occupy the
@@ -83,7 +87,20 @@ var Engine = (function(global) {
         updateEntities(dt);
         checkCollisions();
     }
-
+    /* This checks the x and y coordinates of each enemy and player.
+     * If collision, resets player position.
+     */
+    function checkCollisions() {
+    allEnemies.forEach(function (enemy) {
+        if (((player.x - acollisionfront) < enemy.x) &&
+            (enemy.x < (player.x + acollisionfront)) &&
+            ((player.y - acollisionfront) < enemy.y) &&
+            (enemy.y < (player.y + bcollisionfront))) {
+            player.resetPosition();
+            alert('You lost. GAME OVER!');
+            }
+        });
+    }
     /* This is called by the update function  and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
@@ -174,11 +191,9 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/Gem Orange.png',
-        'images/Star.png',
-        'images/Gem Blue.png',
-
+        'images/Star.png'
     ]);
+
     Resources.onReady(init);
 
     /* Assign the canvas' context object to the global variable (the window
