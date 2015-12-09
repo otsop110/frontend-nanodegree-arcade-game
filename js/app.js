@@ -53,6 +53,10 @@ var Player = function(){
     this.sprite = 'images/char-boy.png';
 };
 
+/* Makes Player Subclass of the Enemy Superclass */
+Player.prototype = Object.create(Enemy.prototype);
+Player.prototype.constructor = Player;
+
 /** Keeps player on the canvas and updates player position,
  * if player hits the water
  */
@@ -74,11 +78,6 @@ Player.prototype.update = function() {
 Player.prototype.resetPosition = function () {
     this.x = 200; // x Position
     this.y = 400; // y position
-};
-
-/** Shows player on the screen */
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 /** Defines the player movements to key presses */
